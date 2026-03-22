@@ -12,7 +12,7 @@ html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
 #cur{width:10px;height:10px;background:var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .12s}
 #cur-r{width:38px;height:38px;border:1px solid rgba(244,239,230,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all .2s ease}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:26px 52px;mix-blend-mode:difference}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:26px 52px;background:rgba(9,9,9,0.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(244,239,230,0.06)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.14em;color:var(--white);text-decoration:none}
 .nav-links{display:flex;gap:38px;list-style:none}
 .nav-links a{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.55;transition:opacity .2s}
@@ -113,12 +113,15 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
   /* Hide custom cursor on touch */
   #cur,#cur-r{display:none}
   body{cursor:auto}
-  /* Nav */
-  nav{padding:18px 20px}
-  .nav-links{gap:20px}
-  .nav-links a{font-size:9.5px}
-  /* Hero */
-  .hero{padding:0 20px 52px}
+  /* Nav — compact, always visible */
+  nav{padding:12px 18px}
+  .nav-logo{font-size:17px;letter-spacing:.1em}
+  .nav-links{gap:14px}
+  .nav-links a{font-size:9px;letter-spacing:.15em}
+  /* Ticker — shorter height on mobile */
+  .hero-ticker{padding:7px 0;font-size:9.5px;letter-spacing:.16em}
+  /* Hero — push content below fixed nav (nav ~44px + ticker ~24px = ~68px) */
+  .hero{padding:80px 20px 52px;min-height:100svh}
   .hero-title{font-size:clamp(54px,14vw,92px)}
   .hero-eyebrow{font-size:9.5px;margin-bottom:16px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px;margin-top:28px}
@@ -174,9 +177,17 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
   footer{flex-direction:column;gap:12px;text-align:center;padding:20px}
 }
 @media(max-width:480px){
+  /* Collapse nav links into a hamburger on tiny screens */
+  .nav-links{display:none;position:fixed;top:44px;left:0;right:0;background:rgba(9,9,9,0.97);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid rgba(244,239,230,.08);z-index:199}
+  .nav-links.open{display:flex}
+  .nav-links li{border-bottom:1px solid rgba(244,239,230,.06)}
+  .nav-links a{display:block;padding:14px 20px;font-size:11px;letter-spacing:.18em;opacity:.7}
+  .nav-hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--white);transition:all .25s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .hero-title{font-size:clamp(46px,13vw,72px)}
-  .nav-links{gap:14px}
-  .nav-links a{font-size:8.5px;letter-spacing:.14em}
   .metrics-grid.cols-2{grid-template-columns:1fr 1fr}
   .m-val.big{font-size:30px}
   .m-val{font-size:26px}
@@ -196,7 +207,10 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
 <div id="cur-r"></div>
 <nav>
   <a href="#" class="nav-logo">Shahrukh Sadiq</a>
-  <ul class="nav-links">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="display:none">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#campaigns">Work</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#certs">Credentials</a></li>
@@ -484,6 +498,23 @@ function initAll(){
   }
   drawFeatured();
 }
+
+/* Hamburger menu */
+const hbg=document.getElementById('hamburger');
+const navLinks=document.getElementById('nav-links');
+function checkHamburger(){
+  if(window.innerWidth<=480){hbg.style.display='flex'}
+  else{hbg.style.display='none';navLinks.classList.remove('open');hbg.classList.remove('open')}
+}
+hbg.addEventListener('click',()=>{
+  navLinks.classList.toggle('open');
+  hbg.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  navLinks.classList.remove('open');hbg.classList.remove('open');
+}));
+window.addEventListener('resize',checkHamburger);
+checkHamburger();
 
 document.fonts.ready.then(()=>{
   initAll();
