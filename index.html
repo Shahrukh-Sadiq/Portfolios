@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shahrukh Sadiq — Performance Marketing Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--black:#090909;--white:#f4efe6;--red:#e5311f}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
+#cur{width:10px;height:10px;background:var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .12s}
+#cur-r{width:38px;height:38px;border:1px solid rgba(244,239,230,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all .2s ease}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:26px 52px;mix-blend-mode:difference}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.14em;color:var(--white);text-decoration:none}
+.nav-links{display:flex;gap:38px;list-style:none}
+.nav-links a{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.55;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 80px;position:relative;overflow:hidden}
+.hero-ticker{position:absolute;top:0;left:0;right:0;overflow:hidden;padding:13px 0;background:var(--red);font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.26em;white-space:nowrap;z-index:10}
+.ticker-track{display:inline-block;animation:tick 24s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hero-eyebrow{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;opacity:.45;margin-bottom:22px;display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--red);flex-shrink:0}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12.5vw,210px);line-height:.87;position:relative;z-index:2}
+.hero-title em{color:var(--red);font-style:normal}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:38px;position:relative;z-index:2;gap:24px}
+.hero-desc{max-width:360px;font-size:14.5px;line-height:1.75;opacity:.58}
+.btn-outline{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--white);border:1px solid rgba(244,239,230,.22);padding:17px 30px;transition:all .3s;position:relative;overflow:hidden;flex-shrink:0}
+.btn-outline::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateX(-102%);transition:transform .3s;z-index:-1}
+.btn-outline:hover::before{transform:translateX(0)}
+.btn-outline:hover{border-color:var(--red)}
+.marquee-bar{padding:16px 0;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(244,239,230,.08);border-bottom:1px solid rgba(244,239,230,.08)}
+.marquee-track{display:inline-block;animation:tick 36s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.3em;opacity:.18}
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr)}
+.stat-cell{padding:58px 52px;border-right:1px solid rgba(244,239,230,.08)}
+.stat-cell:last-child{border-right:none}
+.sc-big{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;color:var(--red);margin-bottom:6px}
+.sc-lbl{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.38;margin-bottom:14px}
+.sc-desc{font-size:13.5px;line-height:1.75;opacity:.5;max-width:255px}
+.sh{display:flex;align-items:center;justify-content:space-between;padding:60px 52px 28px}
+.sh-title{font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.38}
+.sh-count{font-size:10.5px;letter-spacing:.14em;opacity:.28}
+.campaigns{display:flex;flex-direction:column;border-top:1px solid rgba(244,239,230,.08)}
+.campaign-card{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(244,239,230,.08);min-height:420px;overflow:hidden}
+.campaign-card:nth-child(even){direction:rtl}
+.campaign-card:nth-child(even)>*{direction:ltr}
+.camp-visual{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.camp-canvas{width:100%;height:100%;display:block}
+.camp-info{padding:52px 56px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(244,239,230,.08)}
+.campaign-card:nth-child(even) .camp-info{border-left:none;border-right:1px solid rgba(244,239,230,.08)}
+.camp-tag{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.camp-title{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:.95;margin-bottom:20px}
+.camp-desc{font-size:14px;line-height:1.75;opacity:.52;margin-bottom:32px}
+.metrics-grid{display:grid;gap:16px}
+.metrics-grid.cols-2{grid-template-columns:1fr 1fr}
+.metrics-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+.metric-box{background:rgba(244,239,230,.04);border:1px solid rgba(244,239,230,.08);padding:18px 20px;position:relative;transition:background .3s}
+.metric-box:hover{background:rgba(244,239,230,.07)}
+.metric-box::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red)}
+.m-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--white)}
+.m-val.big{font-size:52px}
+.m-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;margin-top:5px}
+.m-note{font-size:11px;opacity:.35;margin-top:4px;line-height:1.4}
+.camp-sub{margin-top:14px;font-size:11.5px;opacity:.32;letter-spacing:.05em;line-height:1.7}
+.award-badge{margin-top:18px;display:inline-flex;align-items:center;gap:10px;background:rgba(229,49,31,.1);border:1px solid rgba(229,49,31,.28);padding:10px 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.featured{padding:80px 52px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid rgba(244,239,230,.08)}
+.feat-lbl{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+.feat-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,5.5vw,80px);line-height:.93;margin-bottom:26px}
+.feat-body{font-size:14.5px;line-height:1.82;opacity:.52;margin-bottom:40px}
+.feat-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fkpi-val{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:var(--red)}
+.fkpi-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.38;margin-top:5px}
+.feat-vis{aspect-ratio:1;position:relative;overflow:hidden}
+.services{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(244,239,230,.08)}
+.svc{padding:52px 36px;border-right:1px solid rgba(244,239,230,.08);transition:background .3s}
+.svc:last-child{border-right:none}
+.svc:hover{background:rgba(244,239,230,.025)}
+.svc-n{font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.2em;color:var(--red);opacity:.65;margin-bottom:34px}
+.svc-name{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1.1;margin-bottom:13px}
+.svc-desc{font-size:13px;line-height:1.75;opacity:.42}
+.platforms{padding:70px 52px;border-top:1px solid rgba(244,239,230,.08)}
+.plt-grid{display:flex;flex-wrap:wrap;border:1px solid rgba(244,239,230,.08);margin-top:38px}
+.plt-cell{flex:1;min-width:120px;padding:28px 20px;border-right:1px solid rgba(244,239,230,.08);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.12em;opacity:.18;transition:opacity .3s;text-align:center}
+.plt-cell:last-child{border-right:none}
+.plt-cell:hover{opacity:.7}
+.certs{padding:70px 52px;border-top:1px solid rgba(244,239,230,.08)}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,239,230,.08);margin-top:38px}
+.cert{background:var(--black);padding:30px 34px;transition:background .3s}
+.cert:hover{background:#111}
+.cert-iss{font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:9px}
+.cert-name{font-size:14px;line-height:1.5;opacity:.72}
+.cert-yr{font-size:10.5px;opacity:.28;margin-top:7px;letter-spacing:.1em}
+.contact{padding:110px 52px;border-top:1px solid rgba(244,239,230,.08);text-align:center;position:relative;overflow:hidden}
+.contact::before{content:'HIRE ME';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.025;white-space:nowrap;pointer-events:none}
+.ct-lbl{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.38;margin-bottom:28px}
+.ct-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9.5vw,140px);line-height:.88;margin-bottom:44px}
+.ct-title em{color:var(--red);font-style:normal}
+.ct-row{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.ct-item{font-size:13.5px;opacity:.45}
+.ct-item a{color:var(--white);text-decoration:none}
+.ct-email{display:inline-block;font-size:19px;letter-spacing:.04em;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(244,239,230,.18);padding-bottom:4px;transition:border-color .3s,opacity .3s;opacity:.6;position:relative;z-index:1}
+.ct-email:hover{opacity:1;border-color:var(--red)}
+footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex;justify-content:space-between;align-items:center}
+.f-copy{font-size:10.5px;opacity:.28;letter-spacing:.1em}
+.f-links{display:flex;gap:28px}
+.f-links a{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.28;transition:opacity .2s}
+.f-links a:hover{opacity:.7}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media(max-width:960px){
+  nav{padding:20px 24px}.hero{padding:0 24px 56px}
+  .hero-title{font-size:clamp(60px,15vw,100px)}.hero-foot{flex-direction:column;align-items:flex-start}
+  .stat-strip{grid-template-columns:1fr}.stat-cell{border-right:none;border-bottom:1px solid rgba(244,239,230,.08)}
+  .campaign-card{grid-template-columns:1fr;direction:ltr!important;min-height:auto}
+  .campaign-card:nth-child(even) .camp-info{border-right:none;border-top:1px solid rgba(244,239,230,.08)}
+  .camp-info{border-left:none!important;border-top:1px solid rgba(244,239,230,.08);padding:36px 28px}
+  .camp-visual{min-height:260px}.metrics-grid.cols-3{grid-template-columns:1fr 1fr}
+  .featured{grid-template-columns:1fr;gap:36px;padding:48px 24px}.feat-kpis{grid-template-columns:1fr 1fr}
+  .services{grid-template-columns:1fr 1fr}.certs-grid{grid-template-columns:1fr 1fr}
+  .sh,.platforms,.certs{padding:44px 24px 22px}.contact{padding:72px 24px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:22px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<nav>
+  <a href="#" class="nav-logo">Shahrukh Sadiq</a>
+  <ul class="nav-links">
+    <li><a href="#campaigns">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#certs">Credentials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0"></canvas>
+  <div class="hero-ticker" style="z-index:10">
+    <span class="ticker-track">GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROI OPTIMIZATION &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp; GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROI OPTIMIZATION &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp;</span>
+  </div>
+  <div class="hero-eyebrow">Performance Marketing · Media Buyer &amp; Planner · Publicis Groupe &amp; Starcom</div>
+  <h1 class="hero-title">Shahrukh<br>Sadiq<em>.</em></h1>
+  <div class="hero-foot">
+    <p class="hero-desc">5 years driving measurable growth for banks, retail, CPG, ecommerce &amp; beauty sectors. Trusted with $15M+ in media budgets across global markets.</p>
+    <a href="#campaigns" class="btn-outline">View Campaigns &nbsp;→</a>
+  </div>
+</section>
+<div class="marquee-bar">
+  <span class="marquee-track">BRAND AWARENESS &nbsp;·&nbsp; LEAD GENERATION &nbsp;·&nbsp; CONVERSION OPTIMIZATION &nbsp;·&nbsp; A/B TESTING &nbsp;·&nbsp; ATTRIBUTION MODELING &nbsp;·&nbsp; FULL FUNNEL STRATEGY &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; CPL &nbsp;·&nbsp; CPA &nbsp;·&nbsp; CPM &nbsp;·&nbsp; PIXEL INTEGRATION &nbsp;·&nbsp; APP INSTALLS &nbsp;·&nbsp; BRAND AWARENESS &nbsp;·&nbsp; LEAD GENERATION &nbsp;·&nbsp; CONVERSION OPTIMIZATION &nbsp;·&nbsp; A/B TESTING &nbsp;·&nbsp;</span>
+</div>
+<section class="stat-strip">
+  <div class="stat-cell reveal"><div class="sc-big">5+</div><div class="sc-lbl">Years of Agency Experience</div><p class="sc-desc">Publicis Groupe (PGD) &amp; Starcom — managing multi-million dollar portfolios across banking, retail, beauty, and travel verticals.</p></div>
+  <div class="stat-cell reveal"><div class="sc-big">95.94%</div><div class="sc-lbl">Annualized ROI Achieved</div><p class="sc-desc">Grew ROI from 83% through strategic targeting and optimization — while simultaneously cutting spend by 25.5%.</p></div>
+  <div class="stat-cell reveal"><div class="sc-big">$15M</div><div class="sc-lbl">Total Budget Managed</div><p class="sc-desc">Campaigns executed across Google, Meta, TikTok, Snapchat, Amazon Ads, Apple Search Ads, and DV360 programmatic.</p></div>
+</section>
+<section id="campaigns">
+  <div class="sh"><span class="sh-title">— Selected Campaigns</span><span class="sh-count">14 Campaigns</span></div>
+  <div class="campaigns">
+    <!-- 1. SEPHORA -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv1"></canvas></div><div class="camp-info"><div class="camp-tag">E-Commerce · Beauty · Full Funnel · Meta Ads</div><h2 class="camp-title">Sephora<br>Full Funnel</h2><p class="camp-desc">End-to-end paid media across awareness, traffic, and conversion funnels. Delivered industry-leading ROAS while scaling reach to 12.2M users at $1.90 CPM.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">14.44X</div><div class="m-lbl">ROAS</div></div><div class="metric-box"><div class="m-val big">6,305</div><div class="m-lbl">Purchases</div></div><div class="metric-box"><div class="m-val">$6.93</div><div class="m-lbl">Cost Per Purchase</div></div><div class="metric-box"><div class="m-val">82M</div><div class="m-lbl">Impressions</div></div></div><div class="camp-sub">Reach: 12.2M · CPM: $1.90 · Link Clicks: 140K · CPC: $0.26</div></div></div>
+
+    <!-- 2. MALL OF THE EMIRATES — 3 campaigns -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv2"></canvas></div><div class="camp-info"><div class="camp-tag">Retail · E-Commerce · Dubai, UAE · Meta Ads · 3 Campaigns</div><h2 class="camp-title">Mall of the<br>Emirates</h2><p class="camp-desc">Three high-performing Meta campaigns for one of Dubai's top retail destinations — iPhone 16 launch, shopping, and Eid season. Eid campaign alone drove $2.4M in purchase value.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">104.97X</div><div class="m-lbl">iPhone 16 ROAS</div><div class="m-note">27 conversions · Spend: $795</div></div><div class="metric-box"><div class="m-val big">91.63x</div><div class="m-lbl">Shopping ROAS</div><div class="m-note">$778K purchase value · Spend: $8.5K</div></div><div class="metric-box"><div class="m-val big">80.7x</div><div class="m-lbl">Eid Campaign ROAS</div><div class="m-note">754 purchases · Budget: $30K</div></div><div class="metric-box"><div class="m-val big">$2.4M</div><div class="m-lbl">Eid Purchase Value</div><div class="m-note">$2,421,333 total</div></div></div><div class="camp-sub">Combined purchase value across 3 campaigns: ~$3.3M · All Meta Ads · Dubai market</div></div></div>
+
+    <!-- 3. HBL Remittance -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv3"></canvas></div><div class="camp-info"><div class="camp-tag">Awareness · Banking · TikTok &amp; Meta · Jan 2024</div><h2 class="camp-title">HBL ×<br>MoneyGram</h2><p class="camp-desc">Remittance awareness campaign targeting the Pakistani diaspora. CPM delivered 34–71% below platform benchmarks.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">9M+</div><div class="m-lbl">Total Impressions</div></div><div class="metric-box"><div class="m-val big">7M+</div><div class="m-lbl">Total Reach</div></div><div class="metric-box"><div class="m-val">PKR 36</div><div class="m-lbl">TikTok CPM</div><div class="m-note">Benchmark: PKR 55</div></div><div class="metric-box"><div class="m-val">PKR 19</div><div class="m-lbl">Meta CPM</div><div class="m-note">Benchmark: PKR 65</div></div></div></div></div>
+
+    <!-- 4. HBL Hajj -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv4"></canvas></div><div class="camp-info"><div class="camp-tag">Lead Generation · Banking · Meta &amp; TikTok · Nov–Dec 2024</div><h2 class="camp-title">HBL Hajj<br>2024</h2><p class="camp-desc">Full-funnel lead generation for HBL Hajj packages. Urdu-language ad adaptations drove record-low cost-per-lead — 39% cheaper than prior year.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">5,973</div><div class="m-lbl">Total Leads</div></div><div class="metric-box"><div class="m-val big">39%</div><div class="m-lbl">Lower CPL vs 2023</div></div><div class="metric-box"><div class="m-val">25.9M</div><div class="m-lbl">Impressions</div></div><div class="metric-box"><div class="m-val">7.2M</div><div class="m-lbl">Reach</div></div></div><div class="camp-sub">CPL: Rs.517 · Prior Year: Rs.850 · Clicks: 148,818</div></div></div>
+
+    <!-- 5. Banking Starcom -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv5"></canvas></div><div class="camp-info"><div class="camp-tag">Awareness · Banking · Starcom · YouTube &amp; TikTok · 2023–24</div><h2 class="camp-title">Banking<br>Sector<br>Campaign</h2><p class="camp-desc">$125K budget across YouTube Masthead, TikTok Top View, and DV360. Record-breaking reach on YouTube and TikTok.</p><div class="metrics-grid cols-3"><div class="metric-box"><div class="m-val big">179M</div><div class="m-lbl">Impressions</div></div><div class="metric-box"><div class="m-val big">10M</div><div class="m-lbl">Video Views</div></div><div class="metric-box"><div class="m-val big">$125K</div><div class="m-lbl">Budget</div></div></div><div class="award-badge">🏆 Best Campaign Strategy Award</div></div></div>
+
+    <!-- 6. Al Tayer Fly — full results -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv6"></canvas></div><div class="camp-info"><div class="camp-tag">Travel · Saudi Arabia · Meta Call Ads &amp; Google · 2 Campaigns</div><h2 class="camp-title">Al Tayer<br>Fly</h2><p class="camp-desc">Two campaigns for Al Tayer Fly luxury travel agency in Saudi Arabia — Meta call ads and Google local campaigns. Combined: 1,146 calls and 2,059 business interactions at ultra-low cost.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">67</div><div class="m-lbl">Calls (Meta · 1 month)</div><div class="m-note">Spend: SAR 347 · Cost/Call: SAR 5.18</div></div><div class="metric-box"><div class="m-val big">2,059</div><div class="m-lbl">Business Interactions (Google · 3 mo)</div><div class="m-note">Spend: SAR 3,217 · GMB campaigns</div></div><div class="metric-box"><div class="m-val">1,079</div><div class="m-lbl">Calls via Google GMB</div></div><div class="metric-box"><div class="m-val">SAR 5.18</div><div class="m-lbl">Cost Per Call (Meta)</div></div></div></div></div>
+
+    <!-- 7. Custom Clothing B2B -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv7"></canvas></div><div class="camp-info"><div class="camp-tag">B2B · Custom Apparel · WhatsApp &amp; Instagram · USA</div><h2 class="camp-title">Custom<br>Clothing B2B</h2><p class="camp-desc">Performance messaging campaign for a custom apparel B2B brand in the US market. WhatsApp and Instagram messaging ads generated 800 high-intent business conversations leading to 35 conversions over 2 months.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">800</div><div class="m-lbl">Total Conversations</div></div><div class="metric-box"><div class="m-val big">35</div><div class="m-lbl">B2B Conversions</div></div><div class="metric-box"><div class="m-val">$1,600</div><div class="m-lbl">Total Spend</div></div><div class="metric-box"><div class="m-val">$2.00</div><div class="m-lbl">Cost Per Conversation</div></div></div><div class="camp-sub">Platforms: WhatsApp Ads &amp; Instagram Messaging · Market: USA · Duration: 2 months</div></div></div>
+
+    <!-- 8. Dawlance -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv8"></canvas></div><div class="camp-info"><div class="camp-tag">Website Conversions · Home Appliances · Meta Ads · Jul–Nov 2023</div><h2 class="camp-title">Dawlance<br>Home Appliances</h2><p class="camp-desc">Full-funnel website conversion campaign for Pakistan's leading home appliances brand. Instagram delivered an exceptional 11.52X ROAS at just $4.90 cost-per-purchase.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">5.95</div><div class="m-lbl">Overall ROAS</div></div><div class="metric-box"><div class="m-val big">$112K</div><div class="m-lbl">Purchase Value</div></div><div class="metric-box"><div class="m-val">1,600</div><div class="m-lbl">Purchases</div></div><div class="metric-box"><div class="m-val">$11.72</div><div class="m-lbl">Cost / Purchase</div></div></div><div class="camp-sub">Spend: $18.9K · Impressions: 59.2M · Reach: 31.2M · Instagram ROAS: 11.52X · FB ROAS: 7.66X</div></div></div>
+
+    <!-- 9. Nyra Homes -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv9"></canvas></div><div class="camp-info"><div class="camp-tag">Website Conversions · Real Estate · Meta Ads · Jan 2026</div><h2 class="camp-title">Nyra<br>Homes</h2><p class="camp-desc">Always-on + seasonal sales campaigns for a real estate brand. Jan 2026 drove 214 purchases at Rs593 CPA. Best 2025 month: 414 purchases at Rs782K purchase value.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">3.03X</div><div class="m-lbl">ROAS (Jan 2026)</div></div><div class="metric-box"><div class="m-val big">214</div><div class="m-lbl">Purchases (Jan)</div></div><div class="metric-box"><div class="m-val">460.5K</div><div class="m-lbl">Reach</div></div><div class="metric-box"><div class="m-val">Rs593</div><div class="m-lbl">Cost / Purchase</div></div></div><div class="camp-sub">Spend: Rs127K · Impressions: 486.2K · Adds to Cart: 781 · Checkouts: 317</div></div></div>
+
+    <!-- 10. Meenorio -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv10"></canvas></div><div class="camp-info"><div class="camp-tag">Website Conversions · Herbal Medicine · Meta Ads · Jan 2026</div><h2 class="camp-title">Meenorio<br>Herbal</h2><p class="camp-desc">Influencer-led performance campaign for a diabetes herbal medicine brand. Best single ad achieved 4.86X ROAS. Retargeting held 2.3X ROAS.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">1.72X</div><div class="m-lbl">Overall ROAS</div><div class="m-note">Best ad: 4.86X ROAS</div></div><div class="metric-box"><div class="m-val big">82</div><div class="m-lbl">Purchases</div><div class="m-note">↑ 70.8% month-on-month</div></div><div class="metric-box"><div class="m-val">Rs262K</div><div class="m-lbl">Purchase Value</div></div><div class="metric-box"><div class="m-val">103.9K</div><div class="m-lbl">Reach</div></div></div><div class="camp-sub">Spend: Rs152K · Impressions: 119.8K · Checkouts: 186 · Purchase Value ↑73% MoM</div></div></div>
+
+    <!-- 11. Heck Designs -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv11"></canvas></div><div class="camp-info"><div class="camp-tag">Lead Ads · Photography · Meta Ads · Jul 2025</div><h2 class="camp-title">Heck Designs<br>&amp; Photography</h2><p class="camp-desc">Lead generation for a photography and design studio. Single winning ad drove 298 of 299 total leads at an efficient $8.10 CPM — leads up 51% MoM.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">299</div><div class="m-lbl">Total Leads</div><div class="m-note">↑ 51% month-on-month</div></div><div class="metric-box"><div class="m-val big">$8.10</div><div class="m-lbl">CPM</div><div class="m-note">↓ 10.6% efficiency gain</div></div><div class="metric-box"><div class="m-val">139.2K</div><div class="m-lbl">Reach</div></div><div class="metric-box"><div class="m-val">152.1K</div><div class="m-lbl">Impressions</div></div></div><div class="camp-sub">Spend: $1.2K · CTR: 0.8% · Link Clicks: 1.1K · Post Engagements: 1.3K</div></div></div>
+
+    <!-- 12. Nailsum -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv12"></canvas></div><div class="camp-info"><div class="camp-tag">Instagram Messaging · Press-On Nails · Meta Ads · Mar 2026</div><h2 class="camp-title">Nailsum<br>Press-On Nails</h2><p class="camp-desc">Instagram conversation campaign for a press-on nails brand in Pakistan. Instagram Reels dominated with 1,188 conversations and 17 purchases from a single placement.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">1,383</div><div class="m-lbl">Conversations</div><div class="m-note">↑ 81.5% vs prior period</div></div><div class="metric-box"><div class="m-val big">Rs19</div><div class="m-lbl">Cost / Message</div><div class="m-note">↓ 26.8% more efficient</div></div><div class="metric-box"><div class="m-val">20</div><div class="m-lbl">Purchases</div><div class="m-note">↑ 900% vs prior period</div></div><div class="metric-box"><div class="m-val">141.2K</div><div class="m-lbl">Reach</div></div></div><div class="camp-sub">Spend: Rs26K · Impressions: 164.9K · Link Clicks: 1.6K · Top: Instagram Reels</div></div></div>
+
+  </div>
+</section>
+<section class="featured reveal">
+  <div>
+    <div class="feat-lbl">— Featured Case Study</div>
+    <h2 class="feat-title">Sephora<br>Full-Funnel<br>Campaign</h2>
+    <p class="feat-body">Managed Sephora's end-to-end paid media strategy across three funnel stages. Built 82M impressions and 12.2M reach at $1.90 CPM, drove 140K clicks at $0.26 CPC, and generated 6,305 purchases at a 14.44X ROAS — all at a $6.93 CPA.</p>
+    <div class="feat-kpis">
+      <div class="fkpi"><div class="fkpi-val">14.44</div><div class="fkpi-lbl">ROAS</div></div>
+      <div class="fkpi"><div class="fkpi-val">6,305</div><div class="fkpi-lbl">Purchases</div></div>
+      <div class="fkpi"><div class="fkpi-val">$6.93</div><div class="fkpi-lbl">CPA</div></div>
+      <div class="fkpi"><div class="fkpi-val">82M</div><div class="fkpi-lbl">Impressions</div></div>
+    </div>
+  </div>
+  <div class="feat-vis"><canvas id="feat-canvas" style="width:100%;height:100%;display:block"></canvas></div>
+</section>
+<section id="services">
+  <div class="sh"><span class="sh-title">— What I Do</span></div>
+  <div class="services">
+    <div class="svc reveal"><div class="svc-n">01</div><div class="svc-name">Media Buying</div><p class="svc-desc">End-to-end campaign execution across Google, Meta, TikTok, Snapchat, and programmatic — optimized for ROI and efficiency.</p></div>
+    <div class="svc reveal"><div class="svc-n">02</div><div class="svc-name">Media Planning</div><p class="svc-desc">Integrated media plans and proposals built to satisfy client objectives, budget control reporting, and exceed the brief.</p></div>
+    <div class="svc reveal"><div class="svc-n">03</div><div class="svc-name">SEM &amp; Paid Social</div><p class="svc-desc">Keyword strategy, ad copy, audience targeting, and continuous A/B testing to maximize CTR, conversions, and quality score.</p></div>
+    <div class="svc reveal"><div class="svc-n">04</div><div class="svc-name">Data &amp; Analytics</div><p class="svc-desc">Attribution modeling, pixel integration, and performance reporting that turns campaign data into actionable strategy.</p></div>
+  </div>
+</section>
+<section class="platforms reveal">
+  <div class="sh" style="padding:0"><span class="sh-title">— Platforms &amp; Tools</span></div>
+  <div class="plt-grid">
+    <div class="plt-cell">Google Ads</div><div class="plt-cell">Meta Ads</div><div class="plt-cell">TikTok Ads</div><div class="plt-cell">Snapchat</div><div class="plt-cell">DV360</div><div class="plt-cell">Amazon Ads</div><div class="plt-cell">Apple Search</div><div class="plt-cell">LinkedIn Ads</div>
+  </div>
+</section>
+<section id="certs" class="certs reveal">
+  <div class="sh" style="padding:0"><span class="sh-title">— Certifications</span></div>
+  <div class="certs-grid">
+    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Buying Professional</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Planning Professional</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">AI-Powered Shopping Ads</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Display &amp; Video 360 Certification</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Google Ads Search</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">HubSpot</div><div class="cert-name">AI for Marketers &amp; Email Marketing</div><div class="cert-yr">2025</div></div>
+  </div>
+</section>
+<section id="contact" class="contact reveal">
+  <div class="ct-lbl">— Available for New Opportunities</div>
+  <h2 class="ct-title">Let's Drive<br><em>Results.</em></h2>
+  <div class="ct-row">
+    <div class="ct-item">📍 Toronto, ON</div>
+    <div class="ct-item"><a href="tel:4378690515">437-869-0515</a></div>
+    <div class="ct-item"><a href="https://linkedin.com/in/shahrukh-sadiq12" target="_blank">LinkedIn ↗</a></div>
+  </div>
+  <a href="mailto:shahrukhsadiq604@gmail.com" class="ct-email">shahrukhsadiq604@gmail.com</a>
+</section>
+<footer>
+  <span class="f-copy">© 2026 Shahrukh Sadiq. All rights reserved.</span>
+  <div class="f-links">
+    <a href="https://linkedin.com/in/shahrukh-sadiq12" target="_blank">LinkedIn</a>
+    <a href="mailto:shahrukhsadiq604@gmail.com">Email</a>
+    <a href="tel:4378690515">Call</a>
+  </div>
+</footer>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-5+'px';cur.style.top=my-5+'px'});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;curR.style.left=rx-19+'px';curR.style.top=ry-19+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.4)';curR.style.transform='scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.transform='scale(1)'});
+});
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*70)});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+function drawHero(){
+  const hc=document.getElementById('hero-canvas');
+  if(!hc||!hc.offsetWidth) return;
+  const dpr=window.devicePixelRatio||1;
+  hc.width=hc.offsetWidth*dpr; hc.height=hc.offsetHeight*dpr;
+  const ctx=hc.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=hc.offsetWidth,H=hc.offsetHeight;
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#0a0008');bg.addColorStop(.5,'#14000c');bg.addColorStop(1,'#060004');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(244,239,230,0.04)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=W/14){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=H/10){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  const g1=ctx.createRadialGradient(W*.78,H*.42,0,W*.78,H*.42,W*.55);
+  g1.addColorStop(0,'rgba(180,20,10,0.35)');g1.addColorStop(1,'transparent');
+  ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+  const g2=ctx.createRadialGradient(W*.18,H*.72,0,W*.18,H*.72,W*.38);
+  g2.addColorStop(0,'rgba(100,0,80,0.22)');g2.addColorStop(1,'transparent');
+  ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
+  const g3=ctx.createRadialGradient(W*.5,H*.18,0,W*.5,H*.18,W*.32);
+  g3.addColorStop(0,'rgba(229,49,31,0.12)');g3.addColorStop(1,'transparent');
+  ctx.fillStyle=g3;ctx.fillRect(0,0,W,H);
+  for(let i=0;i<2800;i++){ctx.fillStyle='rgba(244,239,230,'+Math.random()*.032+')';ctx.fillRect(Math.random()*W,Math.random()*H,1.2,1.2)}
+  ctx.save();
+  ctx.font='bold '+H*.25+'px Bebas Neue,sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(244,239,230,0.025)';
+  ctx.fillText('PERFORMANCE',W*.52,H*.36);
+  ctx.fillText('MARKETING',W*.52,H*.62);
+  ctx.restore();
+  ctx.strokeStyle='rgba(229,49,31,0.22)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,H*.12);ctx.lineTo(W*.28,H*.12);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(W*.72,H*.88);ctx.lineTo(W,H*.88);ctx.stroke();
+  const cards=[
+    {x:0.60,y:0.20,val:'95.94%',lbl:'ROI ACHIEVED'},
+    {x:0.76,y:0.46,val:'$15M',lbl:'BUDGETS MANAGED'},
+    {x:0.62,y:0.68,val:'14',lbl:'CAMPAIGNS'},
+  ];
+  cards.forEach(card=>{
+    const cx=W*card.x,cy=H*card.y,cw=Math.min(200,W*0.22),ch=76;
+    ctx.fillStyle='rgba(8,0,6,0.82)';ctx.fillRect(cx,cy,cw,ch);
+    ctx.strokeStyle='rgba(229,49,31,0.4)';ctx.lineWidth=1;ctx.strokeRect(cx,cy,cw,ch);
+    ctx.fillStyle='rgba(229,49,31,1)';ctx.fillRect(cx,cy,3,ch);
+    ctx.font='bold 30px Bebas Neue,sans-serif';
+    ctx.textAlign='left';ctx.textBaseline='top';
+    ctx.fillStyle='rgba(244,239,230,0.95)';ctx.fillText(card.val,cx+14,cy+10);
+    ctx.font='300 10px DM Sans,sans-serif';
+    ctx.fillStyle='rgba(244,239,230,0.4)';ctx.fillText(card.lbl,cx+14,cy+50);
+  });
+}
+
+function drawCampaign(canvas,cfg){
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  if(!rect.width||!rect.height) return;
+  canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=rect.height;
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  cfg.bg.forEach((c,i)=>bg.addColorStop(i/(cfg.bg.length-1),c));
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  for(let i=0;i<1600;i++){ctx.fillStyle='rgba(244,239,230,'+Math.random()*.04+')';ctx.fillRect(Math.random()*W,Math.random()*H,1.5,1.5)}
+  ctx.strokeStyle='rgba(244,239,230,0.05)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=W/8){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=H/6){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  cfg.glows.forEach(g=>{
+    const gr=ctx.createRadialGradient(W*g.x,H*g.y,0,W*g.x,H*g.y,Math.min(W,H)*g.r);
+    gr.addColorStop(0,g.c);gr.addColorStop(1,'transparent');
+    ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+  });
+  ctx.font='bold '+Math.min(W,H)*.52+'px Bebas Neue,sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(244,239,230,'+(cfg.go||.04)+')';
+  ctx.fillText(cfg.ghost,W*.5,H*.5);
+  ctx.strokeStyle='rgba(229,49,31,0.4)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(0,H*.08);ctx.lineTo(W*.38,H*.08);ctx.stroke();
+  ctx.font='bold '+W*.18+'px Bebas Neue,sans-serif';
+  ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.fillStyle='rgba(244,239,230,0.92)';ctx.fillText(cfg.stat,W*.07,H*.13);
+  ctx.font='300 '+W*.046+'px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(244,239,230,0.36)';ctx.fillText(cfg.lbl||'',W*.07,H*.13+W*.21);
+  if(cfg.tags){
+    const tw=W*.44,th=W*.062;
+    cfg.tags.forEach((t,i)=>{
+      const tx=W*.06,ty=H*.72+i*(th+9);
+      ctx.fillStyle='rgba(229,49,31,0.16)';ctx.fillRect(tx,ty,tw,th);
+      ctx.font=W*.03+'px Bebas Neue,sans-serif';
+      ctx.textAlign='left';ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(244,239,230,0.58)';ctx.fillText(t,tx+12,ty+th/2);
+    });
+  }
+}
+
+const cfgs=[
+  {bg:['#1a0508','#2e0810','#120205'],glows:[{x:.65,y:.38,r:.65,c:'rgba(200,30,60,0.28)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.2)'}],ghost:'SEPH',go:.05,stat:'14.44X',lbl:'ROAS',tags:['META ADS','INSTAGRAM']},
+  {bg:['#0a0e04','#141a06','#080b03'],glows:[{x:.65,y:.38,r:.6,c:'rgba(120,160,20,0.2)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.14)'}],ghost:'MOE',go:.055,stat:'104.97x',lbl:'PEAK ROAS',tags:['META ADS','DUBAI']},
+  {bg:['#0d0518','#150830','#0a0420'],glows:[{x:.7,y:.35,r:.7,c:'rgba(80,20,180,0.28)'},{x:.2,y:.8,r:.5,c:'rgba(229,49,31,0.18)'}],ghost:'HBL',go:.05,stat:'9M+',lbl:'IMPRESSIONS',tags:['TIKTOK','META']},
+  {bg:['#0d1205','#182208','#0a1004'],glows:[{x:.6,y:.4,r:.6,c:'rgba(60,130,20,0.22)'},{x:.1,y:.7,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'HAJJ',go:.055,stat:'5,973',lbl:'LEADS',tags:['META','TIKTOK']},
+  {bg:['#050e1c','#081828','#030a14'],glows:[{x:.6,y:.4,r:.65,c:'rgba(20,80,200,0.25)'},{x:.2,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'BANK',go:.05,stat:'179M',lbl:'IMPRESSIONS',tags:['YOUTUBE','TIKTOK','DV360']},
+  {bg:['#0d0908','#1c1410','#0a0706'],glows:[{x:.6,y:.38,r:.62,c:'rgba(180,120,20,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'FLY',go:.06,stat:'1,079',lbl:'CALLS',tags:['META CALL ADS','GOOGLE GMB']},
+  {bg:['#060a14','#0a1020','#030508'],glows:[{x:.65,y:.38,r:.65,c:'rgba(40,80,200,0.24)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'B2B',go:.055,stat:'800',lbl:'CONVERSATIONS',tags:['WHATSAPP ADS','INSTAGRAM']},
+  {bg:['#1a0505','#2a0808','#100202'],glows:[{x:.65,y:.35,r:.68,c:'rgba(220,30,30,0.28)'},{x:.15,y:.78,r:.5,c:'rgba(229,49,31,0.18)'}],ghost:'DWNC',go:.05,stat:'5.95X',lbl:'ROAS',tags:['FACEBOOK','INSTAGRAM']},
+  {bg:['#0d0e00','#1c1e00','#0a0b00'],glows:[{x:.65,y:.38,r:.65,c:'rgba(200,180,0,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'NYRA',go:.055,stat:'3.03X',lbl:'ROAS',tags:['META ADS','INSTAGRAM']},
+  {bg:['#02100a','#041e10','#010a06'],glows:[{x:.6,y:.38,r:.65,c:'rgba(20,160,80,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'MEEN',go:.055,stat:'Rs262K',lbl:'PURCHASE VALUE',tags:['FACEBOOK','INSTAGRAM']},
+  {bg:['#080a10','#101420','#050710'],glows:[{x:.62,y:.38,r:.65,c:'rgba(60,100,220,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'HECK',go:.055,stat:'299',lbl:'LEADS',tags:['META LEAD ADS','INSTAGRAM']},
+  {bg:['#150510','#22081c','#0d0310'],glows:[{x:.65,y:.38,r:.65,c:'rgba(220,60,160,0.26)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.16)'}],ghost:'NAIL',go:.055,stat:'1,383',lbl:'CONVERSATIONS',tags:['INSTAGRAM REELS','META']}
+];
+
+function drawFeatured(){
+  const fc=document.getElementById('feat-canvas');
+  if(!fc) return;
+  const dpr=window.devicePixelRatio||1;
+  const r=fc.getBoundingClientRect();
+  if(!r.width||!r.height) return;
+  fc.width=r.width*dpr;fc.height=r.height*dpr;
+  const ctx=fc.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height;
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#1a0508');bg.addColorStop(.5,'#2e0810');bg.addColorStop(1,'#120205');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const gr=ctx.createRadialGradient(W*.5,H*.5,0,W*.5,H*.5,W*.55);
+  gr.addColorStop(0,'rgba(229,49,31,0.22)');gr.addColorStop(1,'transparent');
+  ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+  for(let n=0;n<1200;n++){ctx.fillStyle='rgba(244,239,230,'+Math.random()*.035+')';ctx.fillRect(Math.random()*W,Math.random()*H,1.5,1.5)}
+  [.18,.3,.42,.54].forEach((rad,i)=>{
+    ctx.strokeStyle='rgba(229,49,31,'+(0.06+i*.04)+')';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(W*.5,H*.5,Math.min(W,H)*rad,0,Math.PI*2);ctx.stroke();
+  });
+  ctx.font='bold '+W*.2+'px Bebas Neue,sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(244,239,230,0.05)';ctx.fillText('SEPHORA',W*.5,H*.42);
+  ctx.font='bold '+W*.13+'px Bebas Neue,sans-serif';
+  ctx.fillStyle='rgba(229,49,31,0.9)';ctx.fillText('14.44',W*.5,H*.54);
+  ctx.font='300 '+W*.04+'px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(244,239,230,0.32)';ctx.fillText('ROAS',W*.5,H*.64);
+}
+
+function initAll(){
+  drawHero();
+  for(let i=1;i<=12;i++){
+    const cv=document.getElementById('cv'+i);
+    if(cv) drawCampaign(cv,cfgs[i-1]);
+  }
+  drawFeatured();
+}
+
+document.fonts.ready.then(()=>{
+  initAll();
+  window.addEventListener('resize',initAll);
+});
+</script>
+</body>
+</html>
