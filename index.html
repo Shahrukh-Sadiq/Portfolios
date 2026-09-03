@@ -6,199 +6,331 @@
 <title>Shahrukh Sadiq — Performance Marketing Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--black:#090909;--white:#f4efe6;--red:#e5311f}
+/* ── RESET & TOKENS ── */
+:root{
+  --red:#e5311f;
+  --bg:#fafaf8;
+  --surface:#ffffff;
+  --dark:#0d0d0d;
+  --text:#1c1c1c;
+  --mid:#555;
+  --dim:#888;
+  --border:rgba(0,0,0,0.09);
+  --border-strong:rgba(0,0,0,0.16);
+  --hero-bg:#0a0a0a;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
-#cur{width:10px;height:10px;background:var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .12s}
-#cur-r{width:38px;height:38px;border:1px solid rgba(244,239,230,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all .2s ease}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:26px 52px;background:rgba(9,9,9,0.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(244,239,230,0.06)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.14em;color:var(--white);text-decoration:none}
-.nav-links{display:flex;gap:38px;list-style:none}
-.nav-links a{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.55;transition:opacity .2s}
-.nav-links a:hover{opacity:1}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 80px;position:relative;overflow:hidden}
-.hero-ticker{position:absolute;top:0;left:0;right:0;overflow:hidden;padding:13px 0;background:var(--red);font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.26em;white-space:nowrap;z-index:10}
-.ticker-track{display:inline-block;animation:tick 24s linear infinite}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+img{max-width:100%;display:block}
+
+/* ── CURSOR (desktop only) ── */
+@media(hover:hover){
+  body{cursor:none}
+  #cur{width:8px;height:8px;background:var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .1s,opacity .2s}
+  #cur-r{width:32px;height:32px;border:1.5px solid rgba(229,49,31,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:left .12s ease,top .12s ease,transform .2s}
+}
+@media(hover:none){#cur,#cur-r{display:none}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:56px;
+  background:rgba(250,250,248,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.12em;color:var(--dark);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--red)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-hamburger span{display:block;width:20px;height:1.5px;background:var(--dark);transition:all .25s}
+
+/* ── TICKER ── */
+.hero-ticker{
+  position:absolute;top:0;left:0;right:0;overflow:hidden;
+  padding:5px 0;background:var(--red);
+  font-family:'Bebas Neue',sans-serif;font-size:10.5px;
+  letter-spacing:.22em;white-space:nowrap;z-index:10;
+}
+.hero-ticker::before,.hero-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+.hero-ticker::before{left:0;background:linear-gradient(to right,var(--red),transparent)}
+.hero-ticker::after{right:0;background:linear-gradient(to left,var(--red),transparent)}
+.ticker-track{display:inline-block;animation:tick 28s linear infinite}
 @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.hero-eyebrow{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;opacity:.45;margin-bottom:22px;display:flex;align-items:center;gap:14px;position:relative;z-index:2}
-.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--red);flex-shrink:0}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12.5vw,210px);line-height:.87;position:relative;z-index:2}
+
+/* ── HERO ── */
+.hero{
+  min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:56px 52px 56px;position:relative;overflow:hidden;
+  background:var(--hero-bg);
+}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;position:relative;z-index:2;
+}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--red);flex-shrink:0}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,11vw,180px);
+  line-height:.88;position:relative;z-index:2;color:#fff;
+  letter-spacing:-.01em;
+}
 .hero-title em{color:var(--red);font-style:normal}
-.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:38px;position:relative;z-index:2;gap:24px}
-.hero-desc{max-width:360px;font-size:14.5px;line-height:1.75;opacity:.58}
-.btn-outline{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--white);border:1px solid rgba(244,239,230,.22);padding:17px 30px;transition:all .3s;position:relative;overflow:hidden;flex-shrink:0}
-.btn-outline::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateX(-102%);transition:transform .3s;z-index:-1}
-.btn-outline:hover::before{transform:translateX(0)}
-.btn-outline:hover{border-color:var(--red)}
-.marquee-bar{padding:16px 0;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(244,239,230,.08);border-bottom:1px solid rgba(244,239,230,.08)}
-.marquee-track{display:inline-block;animation:tick 36s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.3em;opacity:.18}
-.stat-strip{display:grid;grid-template-columns:repeat(3,1fr)}
-.stat-cell{padding:58px 52px;border-right:1px solid rgba(244,239,230,.08)}
-.stat-cell:last-child{border-right:none}
-.sc-big{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;color:var(--red);margin-bottom:6px}
-.sc-lbl{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.38;margin-bottom:14px}
-.sc-desc{font-size:13.5px;line-height:1.75;opacity:.5;max-width:255px}
-.sh{display:flex;align-items:center;justify-content:space-between;padding:60px 52px 28px}
-.sh-title{font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.38}
-.sh-count{font-size:10.5px;letter-spacing:.14em;opacity:.28}
-.campaigns{display:flex;flex-direction:column;border-top:1px solid rgba(244,239,230,.08)}
-.campaign-card{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(244,239,230,.08);min-height:420px;overflow:hidden}
+.hero-divider{width:40px;height:2px;background:var(--red);margin:28px 0;position:relative;z-index:2}
+.hero-foot{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  position:relative;z-index:2;gap:24px;
+}
+.hero-desc{max-width:340px;font-size:15px;line-height:1.75;color:rgba(255,255,255,0.65)}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--red);color:#fff;padding:15px 28px;
+  transition:background .25s,transform .2s;flex-shrink:0;font-weight:400;
+}
+.btn-primary:hover{background:#c4280f;transform:translateY(-1px)}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--dark);
+}
+.stats-bar-item{
+  padding:32px 36px;border-right:1px solid rgba(255,255,255,0.07);
+  display:flex;flex-direction:column;gap:4px;
+}
+.stats-bar-item:last-child{border-right:none}
+.sbi-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--red)}
+.sbi-lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+
+/* ── MARQUEE ── */
+.marquee-bar{
+  padding:12px 0;overflow:hidden;white-space:nowrap;
+  border-bottom:1px solid var(--border);background:var(--surface);
+}
+.marquee-track{
+  display:inline-block;animation:tick 40s linear infinite;
+  font-family:'Bebas Neue',sans-serif;font-size:11.5px;
+  letter-spacing:.26em;color:var(--dim);
+}
+
+/* ── SECTION HEADER ── */
+.sh{display:flex;align-items:center;justify-content:space-between;padding:56px 52px 24px}
+.sh-title{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);font-family:'Bebas Neue',sans-serif}
+.sh-count{font-size:11px;letter-spacing:.12em;color:var(--dim)}
+
+/* ── CAMPAIGN CARDS ── */
+.campaigns{display:flex;flex-direction:column}
+.campaign-card{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid var(--border);
+  min-height:400px;overflow:hidden;
+}
 .campaign-card:nth-child(even){direction:rtl}
 .campaign-card:nth-child(even)>*{direction:ltr}
-.camp-visual{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.camp-visual{position:relative;overflow:hidden}
 .camp-canvas{width:100%;height:100%;display:block}
-.camp-info{padding:52px 56px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(244,239,230,.08)}
-.campaign-card:nth-child(even) .camp-info{border-left:none;border-right:1px solid rgba(244,239,230,.08)}
-.camp-tag{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
-.camp-title{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:.95;margin-bottom:20px}
-.camp-desc{font-size:14px;line-height:1.75;opacity:.52;margin-bottom:32px}
-.metrics-grid{display:grid;gap:16px}
+.camp-info{
+  padding:48px 52px;display:flex;flex-direction:column;
+  justify-content:center;border-left:1px solid var(--border);
+  background:var(--surface);
+}
+.campaign-card:nth-child(even) .camp-info{border-left:none;border-right:1px solid var(--border)}
+.camp-tag{
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--red);margin-bottom:12px;font-weight:500;
+}
+.camp-title{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:.95;
+  margin-bottom:16px;color:var(--dark);
+}
+.camp-desc{font-size:14.5px;line-height:1.8;color:var(--mid);margin-bottom:28px}
+
+/* ── METRICS ── */
+.metrics-grid{display:grid;gap:10px}
 .metrics-grid.cols-2{grid-template-columns:1fr 1fr}
 .metrics-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
-.metric-box{background:rgba(244,239,230,.04);border:1px solid rgba(244,239,230,.08);padding:18px 20px;position:relative;transition:background .3s}
-.metric-box:hover{background:rgba(244,239,230,.07)}
-.metric-box::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red)}
-.m-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--white)}
-.m-val.big{font-size:52px}
-.m-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;margin-top:5px}
-.m-note{font-size:11px;opacity:.35;margin-top:4px;line-height:1.4}
-.camp-sub{margin-top:14px;font-size:11.5px;opacity:.32;letter-spacing:.05em;line-height:1.7}
-.award-badge{margin-top:18px;display:inline-flex;align-items:center;gap:10px;background:rgba(229,49,31,.1);border:1px solid rgba(229,49,31,.28);padding:10px 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.featured{padding:80px 52px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid rgba(244,239,230,.08)}
-.feat-lbl{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
-.feat-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,5.5vw,80px);line-height:.93;margin-bottom:26px}
-.feat-body{font-size:14.5px;line-height:1.82;opacity:.52;margin-bottom:40px}
-.feat-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.fkpi-val{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:var(--red)}
-.fkpi-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.38;margin-top:5px}
-.feat-vis{aspect-ratio:1;position:relative;overflow:hidden}
-.services{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(244,239,230,.08)}
-.svc{padding:52px 36px;border-right:1px solid rgba(244,239,230,.08);transition:background .3s}
+.metric-box{
+  background:var(--bg);border:1px solid var(--border);
+  padding:16px 16px 14px;position:relative;
+  transition:border-color .2s,box-shadow .2s;
+}
+.metric-box:hover{border-color:rgba(229,49,31,.3);box-shadow:0 2px 12px rgba(229,49,31,.06)}
+.metric-box::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--red)}
+.m-val{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:var(--dark)}
+.m-val.big{font-size:46px}
+.m-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.m-note{font-size:11.5px;color:var(--dim);margin-top:4px;line-height:1.4}
+.camp-sub{margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.65}
+.award-badge{
+  margin-top:16px;display:inline-flex;align-items:center;gap:8px;
+  background:rgba(229,49,31,.06);border:1px solid rgba(229,49,31,.2);
+  padding:9px 14px;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--red);width:fit-content;
+}
+
+/* ── FEATURED ── */
+.featured{
+  padding:80px 52px;display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:center;
+  border-top:1px solid var(--border);background:var(--surface);
+}
+.feat-lbl{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+.feat-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,5vw,76px);line-height:.93;margin-bottom:24px;color:var(--dark)}
+.feat-body{font-size:15px;line-height:1.85;color:var(--mid);margin-bottom:36px}
+.feat-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border)}
+.fkpi{padding:20px 18px;border-right:1px solid var(--border)}
+.fkpi:last-child{border-right:none}
+.fkpi-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--red)}
+.fkpi-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.feat-vis{aspect-ratio:1;overflow:hidden}
+
+/* ── SERVICES ── */
+.services{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
+.svc{padding:48px 36px;border-right:1px solid var(--border);background:var(--bg);transition:background .25s}
 .svc:last-child{border-right:none}
-.svc:hover{background:rgba(244,239,230,.025)}
-.svc-n{font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.2em;color:var(--red);opacity:.65;margin-bottom:34px}
-.svc-name{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1.1;margin-bottom:13px}
-.svc-desc{font-size:13px;line-height:1.75;opacity:.42}
-.platforms{padding:70px 52px;border-top:1px solid rgba(244,239,230,.08)}
-.plt-grid{display:flex;flex-wrap:wrap;border:1px solid rgba(244,239,230,.08);margin-top:38px}
-.plt-cell{flex:1;min-width:120px;padding:28px 20px;border-right:1px solid rgba(244,239,230,.08);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.12em;opacity:.18;transition:opacity .3s;text-align:center}
+.svc:hover{background:var(--surface)}
+.svc-n{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--red);margin-bottom:32px}
+.svc-name{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1.1;margin-bottom:12px;color:var(--dark)}
+.svc-desc{font-size:13.5px;line-height:1.8;color:var(--mid)}
+
+/* ── PLATFORMS ── */
+.platforms{padding:64px 52px;border-top:1px solid var(--border);background:var(--surface)}
+.plt-grid{display:flex;flex-wrap:wrap;border:1px solid var(--border);margin-top:32px}
+.plt-cell{
+  flex:1;min-width:110px;padding:24px 16px;border-right:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.1em;
+  color:var(--dim);transition:all .25s;text-align:center;
+}
 .plt-cell:last-child{border-right:none}
-.plt-cell:hover{opacity:.7}
-.certs{padding:70px 52px;border-top:1px solid rgba(244,239,230,.08)}
-.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,239,230,.08);margin-top:38px}
-.cert{background:var(--black);padding:30px 34px;transition:background .3s}
-.cert:hover{background:#111}
-.cert-iss{font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:9px}
-.cert-name{font-size:14px;line-height:1.5;opacity:.72}
-.cert-yr{font-size:10.5px;opacity:.28;margin-top:7px;letter-spacing:.1em}
-.contact{padding:110px 52px;border-top:1px solid rgba(244,239,230,.08);text-align:center;position:relative;overflow:hidden}
-.contact::before{content:'HIRE ME';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.025;white-space:nowrap;pointer-events:none}
-.ct-lbl{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.38;margin-bottom:28px}
-.ct-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9.5vw,140px);line-height:.88;margin-bottom:44px}
+.plt-cell:hover{color:var(--red);background:var(--bg)}
+
+/* ── CERTS ── */
+.certs{padding:64px 52px;border-top:1px solid var(--border);background:var(--bg)}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:32px}
+.cert{background:var(--surface);padding:28px 32px;transition:background .25s}
+.cert:hover{background:#fff}
+.cert-iss{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:8px;font-weight:500}
+.cert-name{font-size:13.5px;line-height:1.5;color:var(--text)}
+.cert-yr{font-size:11px;color:var(--dim);margin-top:6px}
+
+/* ── CONTACT ── */
+.contact{
+  padding:100px 52px;border-top:1px solid var(--border);
+  text-align:center;background:var(--dark);position:relative;overflow:hidden;
+}
+.ct-lbl{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:24px}
+.ct-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,130px);line-height:.88;margin-bottom:40px;color:#fff}
 .ct-title em{color:var(--red);font-style:normal}
-.ct-row{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
-.ct-item{font-size:13.5px;opacity:.45}
-.ct-item a{color:var(--white);text-decoration:none}
-.ct-email{display:inline-block;font-size:19px;letter-spacing:.04em;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(244,239,230,.18);padding-bottom:4px;transition:border-color .3s,opacity .3s;opacity:.6;position:relative;z-index:1}
-.ct-email:hover{opacity:1;border-color:var(--red)}
-footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex;justify-content:space-between;align-items:center}
-.f-copy{font-size:10.5px;opacity:.28;letter-spacing:.1em}
-.f-links{display:flex;gap:28px}
-.f-links a{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.28;transition:opacity .2s}
-.f-links a:hover{opacity:.7}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.ct-row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.ct-item{font-size:13.5px;color:rgba(255,255,255,0.5)}
+.ct-item a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color .2s}
+.ct-item a:hover{color:var(--red)}
+.ct-email{
+  display:inline-block;font-size:18px;color:rgba(255,255,255,0.8);
+  text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.2);
+  padding-bottom:3px;transition:all .25s;
+}
+.ct-email:hover{color:var(--red);border-color:var(--red)}
+
+/* ── FOOTER ── */
+footer{
+  padding:24px 52px;background:var(--dark);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.f-copy{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:.08em}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--red)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
-@media(max-width:960px){
-  /* Hide custom cursor on touch */
-  #cur,#cur-r{display:none}
-  body{cursor:auto}
-  /* Nav — compact, always visible */
-  nav{padding:12px 18px}
-  .nav-logo{font-size:17px;letter-spacing:.1em}
-  .nav-links{gap:14px}
-  .nav-links a{font-size:9px;letter-spacing:.15em}
-  /* Ticker — shorter height on mobile */
-  .hero-ticker{padding:7px 0;font-size:9.5px;letter-spacing:.16em}
-  /* Hero — push content below fixed nav (nav ~44px + ticker ~24px = ~68px) */
-  .hero{padding:80px 20px 52px;min-height:100svh}
-  .hero-title{font-size:clamp(54px,14vw,92px)}
-  .hero-eyebrow{font-size:9.5px;margin-bottom:16px}
-  .hero-foot{flex-direction:column;align-items:flex-start;gap:22px;margin-top:28px}
-  .hero-desc{font-size:13.5px;max-width:100%}
-  .btn-outline{padding:15px 24px;font-size:10px}
-  /* Stats */
-  .stat-strip{grid-template-columns:1fr}
-  .stat-cell{border-right:none;border-bottom:1px solid rgba(244,239,230,.08);padding:40px 20px}
-  .sc-big{font-size:60px}
-  /* Section headers */
-  .sh{padding:40px 20px 20px}
-  /* Campaign cards — stack vertically */
+
+/* ── MOBILE 768px ── */
+@media(max-width:768px){
+  nav{padding:0 18px;height:50px}
+  .nav-logo{font-size:16px}
+  .nav-links{
+    display:none;position:fixed;top:50px;left:0;right:0;
+    flex-direction:column;gap:0;background:rgba(250,250,248,0.98);
+    border-bottom:1px solid var(--border);z-index:199;
+    backdrop-filter:blur(20px);
+  }
+  .nav-links.open{display:flex}
+  .nav-links li{border-bottom:1px solid var(--border)}
+  .nav-links a{display:block;padding:14px 20px;font-size:12px;opacity:1;color:var(--dark)}
+  .nav-hamburger{display:flex}
+  /* Hero */
+  .hero{padding:64px 22px 40px;min-height:65vh}
+  .hero-ticker{padding:4px 0;font-size:9px;letter-spacing:.1em}
+  .hero-eyebrow{font-size:10px;margin-bottom:14px}
+  .hero-title{font-size:clamp(52px,14vw,88px)}
+  .hero-divider{margin:20px 0}
+  .hero-foot{flex-direction:column;align-items:flex-start;gap:18px}
+  .hero-desc{font-size:14.5px;max-width:100%}
+  .btn-primary{padding:14px 24px;font-size:10.5px}
+  /* Stats bar */
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stats-bar-item{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,0.07)}
+  .stats-bar-item:nth-child(2n){border-right:none}
+  .sbi-val{font-size:36px}
+  .sbi-lbl{font-size:9.5px}
+  /* Campaigns */
+  .sh{padding:36px 20px 16px}
   .campaign-card{grid-template-columns:1fr;direction:ltr!important;min-height:auto}
-  .campaign-card:nth-child(even) .camp-info{border-right:none;border-top:1px solid rgba(244,239,230,.08)}
-  .camp-visual{min-height:220px}
-  .camp-info{border-left:none!important;border-top:1px solid rgba(244,239,230,.08);padding:28px 20px}
-  .camp-title{font-size:38px}
-  .camp-desc{font-size:13px;margin-bottom:22px}
-  /* Metrics — always 2 cols on mobile */
+  .campaign-card:nth-child(even) .camp-info{border-right:none;border-top:1px solid var(--border)}
+  .camp-visual{min-height:200px}
+  .camp-info{border-left:none!important;border-top:1px solid var(--border);padding:26px 20px}
+  .camp-title{font-size:36px}
+  .camp-desc{font-size:14px;margin-bottom:20px}
   .metrics-grid.cols-2{grid-template-columns:1fr 1fr}
   .metrics-grid.cols-3{grid-template-columns:1fr 1fr}
-  .m-val{font-size:32px}
-  .m-val.big{font-size:36px}
-  .m-lbl{font-size:8.5px}
-  .m-note{font-size:10px}
-  .camp-sub{font-size:10.5px}
-  .award-badge{font-size:10px;padding:8px 12px}
+  .m-val{font-size:28px}
+  .m-val.big{font-size:32px}
+  .m-lbl{font-size:9px}
+  .m-note{font-size:11px}
+  .camp-sub{font-size:12px}
   /* Featured */
-  .featured{grid-template-columns:1fr;gap:32px;padding:40px 20px;border-bottom:1px solid rgba(244,239,230,.08)}
-  .feat-title{font-size:clamp(40px,10vw,64px)}
-  .feat-body{font-size:13.5px}
-  .feat-kpis{grid-template-columns:1fr 1fr;gap:12px}
-  .fkpi-val{font-size:38px}
+  .featured{grid-template-columns:1fr;gap:28px;padding:40px 20px}
+  .feat-title{font-size:clamp(38px,9vw,60px)}
+  .feat-body{font-size:14px}
+  .feat-kpis{grid-template-columns:1fr 1fr}
+  .fkpi{padding:16px 14px}
+  .fkpi-val{font-size:36px}
   .feat-vis{aspect-ratio:4/3}
   /* Services */
   .services{grid-template-columns:1fr 1fr}
-  .svc{padding:36px 20px}
-  .svc-name{font-size:24px}
+  .svc{padding:30px 18px}
+  .svc-name{font-size:22px}
   /* Platforms */
-  .platforms{padding:44px 20px}
-  .plt-cell{min-width:100px;padding:20px 12px;font-size:14px}
+  .platforms{padding:40px 20px}
+  .plt-cell{min-width:90px;padding:18px 10px;font-size:12px}
   /* Certs */
-  .certs{padding:44px 20px}
+  .certs{padding:40px 20px}
   .certs-grid{grid-template-columns:1fr 1fr}
-  .cert{padding:22px 20px}
-  .cert-name{font-size:12.5px}
+  .cert{padding:22px 18px}
   /* Contact */
   .contact{padding:64px 20px}
-  .contact::before{font-size:120px}
-  .ct-title{font-size:clamp(48px,12vw,80px)}
-  .ct-row{gap:24px}
+  .ct-title{font-size:clamp(44px,11vw,72px)}
+  .ct-row{gap:18px}
   .ct-email{font-size:15px}
-  footer{flex-direction:column;gap:12px;text-align:center;padding:20px}
+  footer{flex-direction:column;gap:10px;text-align:center;padding:20px}
 }
-@media(max-width:480px){
-  /* Collapse nav links into a hamburger on tiny screens */
-  .nav-links{display:none;position:fixed;top:44px;left:0;right:0;background:rgba(9,9,9,0.97);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid rgba(244,239,230,.08);z-index:199}
-  .nav-links.open{display:flex}
-  .nav-links li{border-bottom:1px solid rgba(244,239,230,.06)}
-  .nav-links a{display:block;padding:14px 20px;font-size:11px;letter-spacing:.18em;opacity:.7}
-  .nav-hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--white);transition:all .25s}
-  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .nav-hamburger.open span:nth-child(2){opacity:0}
-  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .hero-title{font-size:clamp(46px,13vw,72px)}
-  .metrics-grid.cols-2{grid-template-columns:1fr 1fr}
-  .m-val.big{font-size:30px}
-  .m-val{font-size:26px}
-  .feat-kpis{grid-template-columns:1fr 1fr}
-  .fkpi-val{font-size:32px}
+@media(max-width:400px){
+  .hero-title{font-size:clamp(44px,13vw,68px)}
+  .stats-bar{grid-template-columns:1fr 1fr}
   .services{grid-template-columns:1fr}
-  .svc{border-right:none;border-bottom:1px solid rgba(244,239,230,.08)}
+  .svc{border-right:none;border-bottom:1px solid var(--border)}
   .certs-grid{grid-template-columns:1fr}
-  .plt-cell{min-width:80px;font-size:12px;padding:16px 10px}
-  .camp-visual{min-height:180px}
-  .sc-big{font-size:52px}
+  .m-val.big{font-size:28px}
+  .feat-kpis{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -207,38 +339,55 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
 <div id="cur-r"></div>
 <nav>
   <a href="#" class="nav-logo">Shahrukh Sadiq</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu" style="display:none">
-    <span></span><span></span><span></span>
-  </button>
   <ul class="nav-links" id="nav-links">
     <li><a href="#campaigns">Work</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#certs">Credentials</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 <section class="hero">
   <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0"></canvas>
-  <div class="hero-ticker" style="z-index:10">
-    <span class="ticker-track">GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROI OPTIMIZATION &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp; GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROI OPTIMIZATION &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp;</span>
+  <div class="hero-ticker">
+    <span class="ticker-track">GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp; GOOGLE ADS &nbsp;·&nbsp; META ADS &nbsp;·&nbsp; TIKTOK &nbsp;·&nbsp; SNAPCHAT &nbsp;·&nbsp; DV360 &nbsp;·&nbsp; PERFORMANCE MARKETING &nbsp;·&nbsp; MEDIA BUYING &nbsp;·&nbsp; MEDIA PLANNING &nbsp;·&nbsp; SEM &nbsp;·&nbsp; PAID SOCIAL &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; FULL FUNNEL &nbsp;·&nbsp;</span>
   </div>
   <div class="hero-eyebrow">Performance Marketing · Media Buyer &amp; Planner · Publicis Groupe &amp; Starcom</div>
   <h1 class="hero-title">Shahrukh<br>Sadiq<em>.</em></h1>
+  <div class="hero-divider"></div>
   <div class="hero-foot">
-    <p class="hero-desc">5 years driving measurable growth for banks, retail, CPG, ecommerce &amp; beauty sectors. Trusted with $15M+ in media budgets across global markets.</p>
-    <a href="#campaigns" class="btn-outline">View Campaigns &nbsp;→</a>
+    <p class="hero-desc">5 years driving measurable growth for banks, retail, CPG, ecommerce &amp; beauty sectors across global markets.</p>
+    <a href="#campaigns" class="btn-primary">View Campaigns &nbsp;→</a>
   </div>
 </section>
+
+<!-- STATS BAR — moved out of hero so no overlap -->
+<div class="stats-bar">
+  <div class="stats-bar-item">
+    <span class="sbi-val">5+</span>
+    <span class="sbi-lbl">Years Experience</span>
+  </div>
+  <div class="stats-bar-item">
+    <span class="sbi-val">95.94%</span>
+    <span class="sbi-lbl">ROI Achieved</span>
+  </div>
+  <div class="stats-bar-item">
+    <span class="sbi-val">$15M</span>
+    <span class="sbi-lbl">Budgets Managed</span>
+  </div>
+  <div class="stats-bar-item">
+    <span class="sbi-val">13</span>
+    <span class="sbi-lbl">Campaigns</span>
+  </div>
+</div>
 <div class="marquee-bar">
   <span class="marquee-track">BRAND AWARENESS &nbsp;·&nbsp; LEAD GENERATION &nbsp;·&nbsp; CONVERSION OPTIMIZATION &nbsp;·&nbsp; A/B TESTING &nbsp;·&nbsp; ATTRIBUTION MODELING &nbsp;·&nbsp; FULL FUNNEL STRATEGY &nbsp;·&nbsp; ROAS &nbsp;·&nbsp; CPL &nbsp;·&nbsp; CPA &nbsp;·&nbsp; CPM &nbsp;·&nbsp; PIXEL INTEGRATION &nbsp;·&nbsp; APP INSTALLS &nbsp;·&nbsp; BRAND AWARENESS &nbsp;·&nbsp; LEAD GENERATION &nbsp;·&nbsp; CONVERSION OPTIMIZATION &nbsp;·&nbsp; A/B TESTING &nbsp;·&nbsp;</span>
 </div>
-<section class="stat-strip">
-  <div class="stat-cell reveal"><div class="sc-big">5+</div><div class="sc-lbl">Years of Agency Experience</div><p class="sc-desc">Publicis Groupe (PGD) &amp; Starcom — managing multi-million dollar portfolios across banking, retail, beauty, and travel verticals.</p></div>
-  <div class="stat-cell reveal"><div class="sc-big">95.94%</div><div class="sc-lbl">Annualized ROI Achieved</div><p class="sc-desc">Grew ROI from 83% through strategic targeting and optimization — while simultaneously cutting spend by 25.5%.</p></div>
-  <div class="stat-cell reveal"><div class="sc-big">$15M</div><div class="sc-lbl">Total Budget Managed</div><p class="sc-desc">Campaigns executed across Google, Meta, TikTok, Snapchat, Amazon Ads, Apple Search Ads, and DV360 programmatic.</p></div>
-</section>
+
 <section id="campaigns">
-  <div class="sh"><span class="sh-title">— Selected Campaigns</span><span class="sh-count">14 Campaigns</span></div>
+  <div class="sh"><span class="sh-title">— Selected Campaigns</span><span class="sh-count">13 Campaigns</span></div>
   <div class="campaigns">
     <!-- 1. SEPHORA -->
     <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv1"></canvas></div><div class="camp-info"><div class="camp-tag">E-Commerce · Beauty · Full Funnel · Meta Ads</div><h2 class="camp-title">Sephora<br>Full Funnel</h2><p class="camp-desc">End-to-end paid media across awareness, traffic, and conversion funnels. Delivered industry-leading 14.44x ROAS while scaling reach to 12.2M users at $1.90 CPM.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">14.44x</div><div class="m-lbl">ROAS</div></div><div class="metric-box"><div class="m-val big">6,305</div><div class="m-lbl">Purchases</div></div><div class="metric-box"><div class="m-val">$6.93</div><div class="m-lbl">Cost Per Purchase</div></div><div class="metric-box"><div class="m-val">82M</div><div class="m-lbl">Impressions</div></div></div><div class="camp-sub">Reach: 12.2M · CPM: $1.90 · Link Clicks: 140K · CPC: $0.26</div></div></div>
@@ -276,6 +425,12 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
     <!-- 12. Nailsum -->
     <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv12"></canvas></div><div class="camp-info"><div class="camp-tag">Instagram Messaging · Press-On Nails · Meta Ads · Mar 2026</div><h2 class="camp-title">Nailsum<br>Press-On Nails</h2><p class="camp-desc">Instagram conversation campaign for a press-on nails brand in Pakistan. Instagram Reels dominated with 1,188 conversations and 17 purchases from a single placement.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">1,383</div><div class="m-lbl">Conversations</div><div class="m-note">↑ 81.5% vs prior period</div></div><div class="metric-box"><div class="m-val big">Rs19</div><div class="m-lbl">Cost / Message</div><div class="m-note">↓ 26.8% more efficient</div></div><div class="metric-box"><div class="m-val">20</div><div class="m-lbl">Purchases</div><div class="m-note">↑ 900% vs prior period</div></div><div class="metric-box"><div class="m-val">141.2K</div><div class="m-lbl">Reach</div></div></div><div class="camp-sub">Spend: Rs26K · Impressions: 164.9K · Link Clicks: 1.6K · Top: Instagram Reels</div></div></div>
 
+
+
+
+    <!-- 13. Space Center Playground -->
+    <div class="campaign-card reveal"><div class="camp-visual"><canvas class="camp-canvas" id="cv13"></canvas></div><div class="camp-info"><div class="camp-tag">Google Ads · Search &amp; Demand Gen · Vaughan, Canada · Mar 2026</div><h2 class="camp-title">Space Center<br>Playground</h2><p class="camp-desc">Google Ads campaign for a space-themed kids' indoor playground in Vaughan, Ontario. Branded search drove 1,290 conversions at $1.86 per conversion — with 111 phone calls — generating 1.31K total conversions across Search and Demand Gen.</p><div class="metrics-grid cols-2"><div class="metric-box"><div class="m-val big">1.31K</div><div class="m-lbl">Total Conversions</div><div class="m-note">1,290 from Search · 21.1 from Demand Gen</div></div><div class="metric-box"><div class="m-val big">$2.06</div><div class="m-lbl">Cost / Conversion</div><div class="m-note">Search: $1.86 · Demand Gen: $14.16</div></div><div class="metric-box"><div class="m-val">111</div><div class="m-lbl">Phone Calls</div><div class="m-note">All from Search campaign</div></div><div class="metric-box"><div class="m-val">$2.69K</div><div class="m-lbl">Total Spend</div><div class="m-note">Search: $2.39K · Demand Gen: $298</div></div></div><div class="camp-sub">space-center.ca · Vaughan, ON · Search + Demand Gen · Jun–Jul 2026</div></div></div>
+
   </div>
 </section>
 <section class="featured reveal">
@@ -310,12 +465,12 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
 <section id="certs" class="certs reveal">
   <div class="sh" style="padding:0"><span class="sh-title">— Certifications</span></div>
   <div class="certs-grid">
-    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Buying Professional</div><div class="cert-yr">2025</div></div>
-    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Planning Professional</div><div class="cert-yr">2025</div></div>
-    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">AI-Powered Shopping Ads</div><div class="cert-yr">2025</div></div>
-    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Display &amp; Video 360 Certification</div><div class="cert-yr">2025</div></div>
-    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Google Ads Search</div><div class="cert-yr">2025</div></div>
-    <div class="cert"><div class="cert-iss">HubSpot</div><div class="cert-name">AI for Marketers &amp; Email Marketing</div><div class="cert-yr">2025</div></div>
+    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Buying Professional</div><div class="cert-yr">2026</div></div>
+    <div class="cert"><div class="cert-iss">Meta Blueprint</div><div class="cert-name">Media Planning Professional</div><div class="cert-yr">2026</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">AI-Powered Shopping Ads</div><div class="cert-yr">2026</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Display &amp; Video 360 Certification</div><div class="cert-yr">2026</div></div>
+    <div class="cert"><div class="cert-iss">Google Ads</div><div class="cert-name">Introduction to Search</div><div class="cert-yr">2026</div></div>
+    <div class="cert"><div class="cert-iss">HubSpot</div><div class="cert-name">AI for Marketers &amp; Email Marketing</div><div class="cert-yr">2026</div></div>
   </div>
 </section>
 <section id="contact" class="contact reveal">
@@ -326,17 +481,17 @@ footer{padding:26px 52px;border-top:1px solid rgba(244,239,230,.08);display:flex
     <div class="ct-item"><a href="tel:4378690515">437-869-0515</a></div>
     <div class="ct-item"><a href="https://linkedin.com/in/shahrukh-sadiq12" target="_blank">LinkedIn ↗</a></div>
   </div>
-  <a href="/cdn-cgi/l/email-protection#592a3138312b2c32312a383d30286f696d193e34383035773a3634" class="ct-email"><span class="__cf_email__" data-cfemail="3e4d565f564c4b55564d5f5a574f080e0a7e59535f5752105d5153">[email&#160;protected]</span></a>
+  <a href="mailto:shahrukhsadiq604@gmail.com" class="ct-email">shahrukhsadiq604@gmail.com</a>
 </section>
 <footer>
   <span class="f-copy">© 2026 Shahrukh Sadiq. All rights reserved.</span>
   <div class="f-links">
     <a href="https://linkedin.com/in/shahrukh-sadiq12" target="_blank">LinkedIn</a>
-    <a href="/cdn-cgi/l/email-protection#6b18030a03191e0003180a0f021a5d5b5f2b0c060a020745080406">Email</a>
+    <a href="mailto:shahrukhsadiq604@gmail.com">Email</a>
     <a href="tel:4378690515">Call</a>
   </div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-5+'px';cur.style.top=my-5+'px'});
@@ -358,49 +513,27 @@ function drawHero(){
   const ctx=hc.getContext('2d');
   ctx.scale(dpr,dpr);
   const W=hc.offsetWidth,H=hc.offsetHeight;
-  const bg=ctx.createLinearGradient(0,0,W,H);
-  bg.addColorStop(0,'#0a0008');bg.addColorStop(.5,'#14000c');bg.addColorStop(1,'#060004');
-  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='rgba(244,239,230,0.04)';ctx.lineWidth=1;
-  for(let x=0;x<W;x+=W/14){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
-  for(let y=0;y<H;y+=H/10){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
-  const g1=ctx.createRadialGradient(W*.78,H*.42,0,W*.78,H*.42,W*.55);
-  g1.addColorStop(0,'rgba(180,20,10,0.35)');g1.addColorStop(1,'transparent');
-  ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
-  const g2=ctx.createRadialGradient(W*.18,H*.72,0,W*.18,H*.72,W*.38);
-  g2.addColorStop(0,'rgba(100,0,80,0.22)');g2.addColorStop(1,'transparent');
-  ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
-  const g3=ctx.createRadialGradient(W*.5,H*.18,0,W*.5,H*.18,W*.32);
-  g3.addColorStop(0,'rgba(229,49,31,0.12)');g3.addColorStop(1,'transparent');
-  ctx.fillStyle=g3;ctx.fillRect(0,0,W,H);
-  for(let i=0;i<2800;i++){ctx.fillStyle='rgba(244,239,230,'+Math.random()*.032+')';ctx.fillRect(Math.random()*W,Math.random()*H,1.2,1.2)}
-  ctx.save();
-  ctx.font='bold '+H*.25+'px Bebas Neue,sans-serif';
-  ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillStyle='rgba(244,239,230,0.025)';
-  ctx.fillText('PERFORMANCE',W*.52,H*.36);
-  ctx.fillText('MARKETING',W*.52,H*.62);
-  ctx.restore();
-  ctx.strokeStyle='rgba(229,49,31,0.22)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(0,H*.12);ctx.lineTo(W*.28,H*.12);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(W*.72,H*.88);ctx.lineTo(W,H*.88);ctx.stroke();
-  const cards=[
-    {x:0.60,y:0.20,val:'95.94%',lbl:'ROI ACHIEVED'},
-    {x:0.76,y:0.46,val:'$15M',lbl:'BUDGETS MANAGED'},
-    {x:0.62,y:0.68,val:'14',lbl:'CAMPAIGNS'},
-  ];
-  cards.forEach(card=>{
-    const cx=W*card.x,cy=H*card.y,cw=Math.min(200,W*0.22),ch=76;
-    ctx.fillStyle='rgba(8,0,6,0.82)';ctx.fillRect(cx,cy,cw,ch);
-    ctx.strokeStyle='rgba(229,49,31,0.4)';ctx.lineWidth=1;ctx.strokeRect(cx,cy,cw,ch);
-    ctx.fillStyle='rgba(229,49,31,1)';ctx.fillRect(cx,cy,3,ch);
-    ctx.font='bold 30px Bebas Neue,sans-serif';
-    ctx.textAlign='left';ctx.textBaseline='top';
-    ctx.fillStyle='rgba(244,239,230,0.95)';ctx.fillText(card.val,cx+14,cy+10);
-    ctx.font='300 10px DM Sans,sans-serif';
-    ctx.fillStyle='rgba(244,239,230,0.4)';ctx.fillText(card.lbl,cx+14,cy+50);
-  });
+  // Dark base
+  ctx.fillStyle='#090909'; ctx.fillRect(0,0,W,H);
+  // Subtle grid
+  ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+  const gSize=Math.min(W,H)/10;
+  for(let x=0;x<W;x+=gSize){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=gSize){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  // Glow — right side only so it doesn't interfere with text on left
+  const g1=ctx.createRadialGradient(W*.85,H*.3,0,W*.85,H*.3,W*.6);
+  g1.addColorStop(0,'rgba(229,49,31,0.22)'); g1.addColorStop(1,'transparent');
+  ctx.fillStyle=g1; ctx.fillRect(0,0,W,H);
+  const g2=ctx.createRadialGradient(W*.9,H*.8,0,W*.9,H*.8,W*.4);
+  g2.addColorStop(0,'rgba(100,10,10,0.18)'); g2.addColorStop(1,'transparent');
+  ctx.fillStyle=g2; ctx.fillRect(0,0,W,H);
+  // Noise
+  for(let i=0;i<2000;i++){ctx.fillStyle='rgba(255,255,255,'+Math.random()*.025+')';ctx.fillRect(Math.random()*W,Math.random()*H,1,1)}
+  // Red accent line — thin, top left
+  ctx.strokeStyle='rgba(229,49,31,0.5)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(0,H*.12); ctx.lineTo(W*.2,H*.12); ctx.stroke();
 }
+
 
 function drawCampaign(canvas,cfg){
   const dpr=window.devicePixelRatio||1;
@@ -457,7 +590,8 @@ const cfgs=[
   {bg:['#0d0e00','#1c1e00','#0a0b00'],glows:[{x:.65,y:.38,r:.65,c:'rgba(200,180,0,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'NYRA',go:.055,stat:'3.03x',lbl:'ROAS',tags:['META ADS','INSTAGRAM']},
   {bg:['#02100a','#041e10','#010a06'],glows:[{x:.6,y:.38,r:.65,c:'rgba(20,160,80,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'MEEN',go:.055,stat:'Rs262K',lbl:'PURCHASE VALUE',tags:['FACEBOOK','INSTAGRAM']},
   {bg:['#080a10','#101420','#050710'],glows:[{x:.62,y:.38,r:.65,c:'rgba(60,100,220,0.22)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'HECK',go:.055,stat:'299',lbl:'LEADS',tags:['META LEAD ADS','INSTAGRAM']},
-  {bg:['#150510','#22081c','#0d0310'],glows:[{x:.65,y:.38,r:.65,c:'rgba(220,60,160,0.26)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.16)'}],ghost:'NAIL',go:.055,stat:'1,383',lbl:'CONVERSATIONS',tags:['INSTAGRAM REELS','META']}
+  {bg:['#150510','#22081c','#0d0310'],glows:[{x:.65,y:.38,r:.65,c:'rgba(220,60,160,0.26)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.16)'}],ghost:'NAIL',go:.055,stat:'1,383',lbl:'CONVERSATIONS',tags:['INSTAGRAM REELS','META']},
+  {bg:['#030d18','#051624','#020a10'],glows:[{x:.65,y:.38,r:.65,c:'rgba(20,100,220,0.28)'},{x:.15,y:.75,r:.5,c:'rgba(229,49,31,0.15)'}],ghost:'SPC',go:.055,stat:'1.31K',lbl:'CONVERSIONS',tags:['GOOGLE SEARCH','DEMAND GEN']}
 ];
 
 function drawFeatured(){
@@ -492,7 +626,7 @@ function drawFeatured(){
 
 function initAll(){
   drawHero();
-  for(let i=1;i<=12;i++){
+  for(let i=1;i<=13;i++){
     const cv=document.getElementById('cv'+i);
     if(cv) drawCampaign(cv,cfgs[i-1]);
   }
